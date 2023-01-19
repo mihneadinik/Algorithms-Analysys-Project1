@@ -1,0 +1,94 @@
+============================Dinica Mihnea-Gabriel==============================
+====================================313CA======================================
+-----------------------------------2.3 LCA-------------------------------------
+! Tabelul se vede ok daca deschdieti cu VSCode !
+Pentru generarea celor 30 de teste am creat un cod in C++ ce se foloseste
+de biblioteca externa pentru generari de arbori "treegenerator.h" (aceasta
+nu imi apartine, se gaseste la: https://github.com/ouuan/Tree-Generator).
+
+Numarul de noduri si de querry-uri este dat explicit in functie de testul
+dorit (dupa cum urmeaza sa prezint), in timp ce nodurile alese pentru fiecare
+querry in parte sunt generate random, avand grija sa nu depaseasca lungimea
+arborelui. Ulterior, pentru fiecare test astfel generat, am rulat un algoritm
+de LCA a carui corectitudine a fost verificata pe infoarena pentru a genera
+raspunsurile de referinta pentru fiecare querry.
+
+Pentru fiecare test citesc pe prima linie n si m (numar de noduri si querry-uri),
+pe urmatoarele n - 1 randuri gasesc perechi de noduri de tipul copil - parinte,
+iar pe ultimele m randuri perechi de noduri care reprezinta querry-urile.
+
+In total exista 35 de teste. Primele 20 sunt grupate in perechi de cate 5,
+avand acelasi numar de noduri si querry-uri (dar valori efective diferite),
+aplicate pe diferite tipuri de arbori. Testele 21-26 abordeaza cateva tipuri
+aparte de arbori, iar testele 27-35 sunt menite sa testeze algoritmii in
+functie de dimensiunea inputurilor (noduri foarte multe sau proportionalitate
+intre noduri si querry-uri).
+Testele sunt dupa cum urmeaza:
+
+|nr. test	|    nr. noduri	|    nr. querry	|    tip arbore
+|  1	    |	10	        |	5	        |	Balanced Binary Tree
+|  2	    |	100	        |	150  	    |	Balanced Binary Tree
+|  3	    |	1000	    |	5000	    |	Balanced Binary Tree
+|  4	    |	10000	    |	20000	    |	Balanced Binary Tree
+|  5	    |	100000	    |	60000	    |	Balanced Binary Tree
+|  6	    |	10	        |	5	        |	Random Tree
+|  7	    |	100	        |	150	        |	Random Tree
+|  8	    |	1000	    |	5000	    |	Random Tree
+|  9	    |	10000	    |	20000	    |	Random Tree
+|  10	    |	100000	    |	60000	    |	Random Tree
+|  11	    |	10	        |	5	        |	Tree generated in depth
+|  12	    |	100	        |	150	        |	Tree generated in depth
+|  13	    |	1000	    |	5000	    |	Tree generated in depth
+|  14	    |	10000	    |	20000	    |	Tree generated in depth
+|  15	    |	100000	    |	60000	    |	Tree generated in depth
+|  16	    |	10	        |	5	        |	Maximum node grade: 10
+|  17	    |	100	        |	150	        |	Maximum node grade: 10
+|  18	    |	1000	    |	5000	    |	Maximum node grade: 10
+|  19	    |	10000	    |	20000	    |	Maximum node grade: 10
+|  20	    |	100000	    |	60000	    |	Maximum node grade: 10
+|  21	    |	50000	    |	50000	    |	Silkworm tree
+|  22	    |	100000	    |	70000	    |	Silkworm tree
+|  23	    |	50000	    |	30000	    |	Binary Tree
+|  24	    |	100000	    |	70000	    |	Binary Tree
+|  25	    |	70000	    | 	40000	    |	Chain Tree
+|  26	    |	100	        |	70	        |	Chain Tree
+|  27	    |	300000	    |	100000	    |	Random Tree
+|  28	    |	500000	    | 	150000	    |	Random Tree
+|  29	    |	750000	    |	200000	    |	Random Tree
+|  30	    |	1000000     |	250000	    |	Random Tree
+|  31	    |	100000	    |	100	        |	Random Tree
+|  32	    |	100000	    |	1000	    |	Random Tree
+|  33	    |	5000	    |	5	        |	Random Tree
+|  34	    |	50000	    |	50000	    |	Random Tree
+|  35	    |	10000	    |	10000	    |	Random Tree
+
+Puteti observa ca testul 30, avand un milion de noduri, pe algoritmul lui
+Tarjan dureaza cateva minute intregi sa se ruleze, dar in final obtine
+outputul corect (practic pentru fiecare nod din parcurgerea DFS trebuie sa
+paarcurga toate querry-urile sa vada daca poate raspunde la ceva).
+
+Pentru ambii algoritmi am folosit vectori indexati de la 0 si alocati
+dinamic (sa nu risc aglomerarea stivei).
+Detalii referitoare la implementarea algoritmilor se regasesc in comentarii in fiecare
+cod in parte.
+
+In arhiva regasim:
+*algo.h - header pentru antetul functii de rezolvare a LCA
+*algo1.cpp - codul sursa pentru algoritmul lui Tarjan, acesta a fost scris
+de mine, folosind documentatia gasita pe [1] si [2]
+*algo2.cpp - codul sursa pentru algoritmul cu RMQ (implementat prin SparseTable)
+folosind informatii gasite la [3], [4] si [5]
+*algo_test.cpp - main-ul in care se citesc inputurile pentru algoritmi (am pastrat
+si citirea specifica de pe infoarena, dar este comentata)
+*test_generator.cpp - codul scris de mine, folosind biblioteca "treegenrator.h" prin
+care imi generez diferite tipuri de inputuri, avand control asupra numarului de noduri
+si de querry-uri
+*in - folder cu datele de intrare
+*out - folder cu rezultatele
+
+[1] = https://www.geeksforgeeks.org/tarjans-off-line-lowest-common-ancestors-algorithm/
+[2] = https://towardsdatascience.com/disjoint-set-and-tarjans-off-line-lowest-common-ancestor-algorithm-b6f7fe83a82f
+[3] = https://www.geeksforgeeks.org/find-lca-in-binary-tree-using-rmq/
+[4] = https://medium.com/@c0D3M/rmq-lca-segmenttree-541eaab66080
+[5] = https://www.youtube.com/watch?v=EKcQt-74bNw&ab_channel=AlgorithmsLive%21
+================================================================================
